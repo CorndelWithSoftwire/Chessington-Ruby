@@ -79,6 +79,17 @@ module Chessington
         end
       end
 
+      def square_in_bounds?(square)
+        (0...BOARD_SIZE).include?(square.row) && (0...BOARD_SIZE).include?(square.column)
+      end
+
+      def square_is_empty?(square)
+        get_piece(square).nil?
+      end
+      def square_is_occupied?(square)
+        !square_is_empty?(square)
+      end
+
       private_class_method :create_empty_board, :create_starting_board
     end
   end
