@@ -16,6 +16,10 @@ module Chessington
       private_class_method :new
     end
 
-    Square = Struct.new(:row, :column)
+    Square = Struct.new(:row, :column) do
+      class <<self
+        alias_method :at,:new
+      end
+    end
   end
 end

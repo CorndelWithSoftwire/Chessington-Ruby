@@ -61,7 +61,7 @@ module Chessington
         (0...BOARD_SIZE).each do |row|
           (0...BOARD_SIZE).each do |col|
             if @board[row][col] == (piece_to_find)
-              return Square.new(row, col)
+              return Square.at(row, col)
             end
           end
         end

@@ -1,6 +1,5 @@
 module Chessington
   module Engine
-
     ##
     # An abstract base class from which all pieces inherit.
     module Piece
@@ -12,7 +11,7 @@ module Chessington
 
       ##
       #  Get all squares that the piece is allowed to move to.
-      def get_available_moves(board)
+      def available_moves(board)
         raise "Not implemented"
       end
 
@@ -29,7 +28,7 @@ module Chessington
     class Pawn
       include Piece
 
-      def get_available_moves(board)
+      def available_moves(board)
         []
       end
     end
@@ -39,7 +38,7 @@ module Chessington
     class Knight
       include Piece
 
-      def get_available_moves(board)
+      def available_moves(board)
         []
       end
     end
@@ -49,7 +48,7 @@ module Chessington
     class Bishop
       include Piece
 
-      def get_available_moves(board)
+      def available_moves(board)
         []
       end
     end
@@ -59,7 +58,7 @@ module Chessington
     class Rook
       include Piece
 
-      def get_available_moves(board)
+      def available_moves(board)
         []
       end
     end
@@ -69,7 +68,7 @@ module Chessington
     class Queen
       include Piece
 
-      def get_available_moves(board)
+      def available_moves(board)
         []
       end
     end
@@ -79,7 +78,7 @@ module Chessington
     class King
       include Piece
 
-      def get_available_moves(board)
+      def available_moves(board)
         []
       end
     end

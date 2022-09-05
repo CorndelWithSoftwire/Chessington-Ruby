@@ -42,7 +42,7 @@ module Chessington
                     fill (row + column).even? ? WHITE_SQUARE : BLACK_SQUARE
                   }
 
-                  piece = @game_board.get_piece(Square.new(row, column))
+                  piece = @game_board.get_piece(Square.at(row, column))
 
                   board_space[:piece] = square(0, 0, 64) {
                     unless piece.nil?
@@ -52,7 +52,7 @@ module Chessington
                   }
 
                   on(:button_press_event) do |widget, event|
-                    handle_click Square.new(row, column) if event.button == 1
+                    handle_click Square.at(row, column) if event.button == 1
                   end
                 }
                 board_space[:area] = area
@@ -75,7 +75,7 @@ module Chessington
         @from_square, @to_squares = nil, []
       elsif !clicked_piece.nil? && clicked_piece.player == @game_board.current_player
         @from_square = clicked_square
-        @to_squares = clicked_piece.get_available_moves(@game_board)
+        @to_squares = clicked_piece.available_moves(@game_board)
       else
         @from_square, @to_squares = nil, []
       end
@@ -85,7 +85,7 @@ module Chessington
     def update_squares
       BOARD_SIZE.times do |row|
         BOARD_SIZE.times do |column|
-          square = Square.new(row, column)
+          square = Square.at(row, column)
           board_square = @board[row][column]
           board_square[:box].fill = if square == @from_square
             [230, 230, 230]
