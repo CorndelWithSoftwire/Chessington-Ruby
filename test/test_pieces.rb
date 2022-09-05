@@ -102,5 +102,125 @@ class TestPieces < Minitest::Test
       refute_includes(moves, Square.at(3, 4))
 
     end
+
+    def test_white_pawn_cannot_move_if_piece_in_front
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::WHITE)
+      pawn_square = Square.at(4, 4)
+      board.set_piece(pawn_square, pawn)
+
+      obstructing_square = Square.at(5, 4)
+      obstruction = Pawn.new(Player::BLACK)
+      board.set_piece(obstructing_square, obstruction)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      assert_equal(moves.length, 0)
+
+    end
+
+    def test_black_pawn_cannot_move_if_piece_in_front
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::BLACK)
+      pawn_square = Square.at(4, 4)
+      board.set_piece(pawn_square, pawn)
+
+      obstructing_square = Square.at(3, 4)
+      obstruction = Pawn.new(Player::WHITE)
+      board.set_piece(obstructing_square, obstruction)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      assert_equal(moves.length, 0)
+
+    end
+
+    def test_white_pawn_cannot_move_two_squares_if_piece_two_in_front
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::WHITE)
+      pawn_square = Square.at(1, 4)
+      board.set_piece(pawn_square, pawn)
+
+      obstructing_square = Square.at(3, 4)
+      obstruction = Pawn.new(Player::BLACK)
+      board.set_piece(obstructing_square, obstruction)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      refute_includes(moves, obstructing_square)
+
+    end
+
+    def test_black_pawn_cannot_move_two_squares_if_piece_two_in_front
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::BLACK)
+      pawn_square = Square.at(6, 4)
+      board.set_piece(pawn_square, pawn)
+
+      obstructing_square = Square.at(4, 4)
+      obstruction = Pawn.new(Player::WHITE)
+      board.set_piece(obstructing_square, obstruction)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      refute_includes(moves, obstructing_square)
+
+    end
+
+    def test_white_pawn_cannot_move_two_squares_if_piece_one_in_front
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::WHITE)
+      pawn_square = Square.at(1, 4)
+      board.set_piece(pawn_square, pawn)
+
+      obstructing_square = Square.at(2, 4)
+      obstruction = Pawn.new(Player::BLACK)
+      board.set_piece(obstructing_square, obstruction)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      refute_includes(moves, Square.at(3, 4))
+
+    end
+
+    def test_black_pawn_cannot_move_two_squares_if_piece_one_in_front
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::BLACK)
+      pawn_square = Square.at(6, 4)
+      board.set_piece(pawn_square, pawn)
+
+      obstructing_square = Square.at(5, 4)
+      obstruction = Pawn.new(Player::WHITE)
+      board.set_piece(obstructing_square, obstruction)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      refute_includes(moves, Square.at(4, 4))
+
+    end
   end
 end
