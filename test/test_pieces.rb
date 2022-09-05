@@ -222,5 +222,37 @@ class TestPieces < Minitest::Test
       refute_includes(moves, Square.at(4, 4))
 
     end
+
+    def test_white_pawn_cannot_move_at_top_of_board
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::WHITE)
+      square = Square.at(7, 4)
+      board.set_piece(square, pawn)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      assert_equal(moves.length, 0)
+
+    end
+
+    def test_black_pawn_cannot_move_at_bottom_of_board
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::BLACK)
+      square = Square.at(0, 4)
+      board.set_piece(square, pawn)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      assert_equal(moves.length, 0)
+
+    end
   end
 end
