@@ -254,5 +254,96 @@ class TestPieces < Minitest::Test
       assert_equal(moves.length, 0)
 
     end
+
+    def test_white_pawns_can_capture_diagonally
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::WHITE)
+      pawn_square = Square.at(3, 4)
+      board.set_piece(pawn_square, pawn)
+
+      enemy1 = Pawn.new(Player::BLACK)
+      enemy1_square = Square.at(4, 5)
+      board.set_piece(enemy1_square, enemy1)
+
+      enemy2 = Pawn.new(Player::BLACK)
+      enemy2_square = Square.at(4, 3)
+      board.set_piece(enemy2_square, enemy2)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      assert_includes(moves, enemy1_square)
+      assert_includes(moves, enemy2_square)
+
+    end
+
+    def test_black_pawns_can_capture_diagonally
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::BLACK)
+      pawn_square = Square.at(3, 4)
+      board.set_piece(pawn_square, pawn)
+
+      enemy1 = Pawn.new(Player::WHITE)
+      enemy1_square = Square.at(2, 5)
+      board.set_piece(enemy1_square, enemy1)
+
+      enemy2 = Pawn.new(Player::WHITE)
+      enemy2_square = Square.at(2, 3)
+      board.set_piece(enemy2_square, enemy2)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      assert_includes(moves, enemy1_square)
+      assert_includes(moves, enemy2_square)
+
+    end
+
+    def test_white_pawns_cannot_move_diagonally_except_to_capture
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::WHITE)
+      pawn_square = Square.at(3, 4)
+      board.set_piece(pawn_square, pawn)
+
+      friendly = Pawn.new(Player::WHITE)
+      friendly_square = Square.at(4, 5)
+      board.set_piece(friendly_square, friendly)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      refute_includes(moves, Square.at(4, 3))
+      refute_includes(moves, Square.at(4, 5))
+
+    end
+
+    def test_black_pawns_cannot_move_diagonally_except_to_capture
+
+      # Arrange
+      board = Board.empty
+      pawn = Pawn.new(Player::BLACK)
+      pawn_square = Square.at(3, 4)
+      board.set_piece(pawn_square, pawn)
+
+      friendly = Pawn.new(Player::BLACK)
+      friendly_square = Square.at(2, 5)
+      board.set_piece(friendly_square, friendly)
+
+      # Act
+      moves = pawn.available_moves(board)
+
+      # Assert
+      refute_includes(moves, Square.at(2, 3))
+      refute_includes(moves, Square.at(2, 5))
+    end
   end
 end
