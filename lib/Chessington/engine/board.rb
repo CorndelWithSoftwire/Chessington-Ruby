@@ -80,12 +80,13 @@ module Chessington
       end
 
       def square_in_bounds?(square)
-        (0...BOARD_SIZE).include?(square.row) && (0...BOARD_SIZE).include?(square.column)
+        (0...BOARD_SIZE).cover?(square.row) && (0...BOARD_SIZE).cover?(square.column)
       end
 
       def square_is_empty?(square)
         get_piece(square).nil?
       end
+      
       def square_is_occupied?(square)
         !square_is_empty?(square)
       end

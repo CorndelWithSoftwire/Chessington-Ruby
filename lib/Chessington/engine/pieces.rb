@@ -25,20 +25,20 @@ module Chessington
       end
 
       def available_lateral_moves(board)
-        a = [
-          available_moves_in_direction(board) { |s| Square.new(s.row + 1, s.column) },
-          available_moves_in_direction(board) { |s| Square.new(s.row - 1, s.column) },
-          available_moves_in_direction(board) { |s| Square.new(s.row, s.column + 1) },
-          available_moves_in_direction(board) { |s| Square.new(s.row, s.column - 1) }
+        [
+          available_moves_in_direction(board) { |s| Square.at(s.row + 1, s.column) },
+          available_moves_in_direction(board) { |s| Square.at(s.row - 1, s.column) },
+          available_moves_in_direction(board) { |s| Square.at(s.row, s.column + 1) },
+          available_moves_in_direction(board) { |s| Square.at(s.row, s.column - 1) }
         ].flat_map(&:to_a).to_a
       end
 
       def available_diagonal_moves(board)
         [
-          available_moves_in_direction(board) { |s| Square.new(s.row + 1, s.column + 1) },
-          available_moves_in_direction(board) { |s| Square.new(s.row - 1, s.column - 1) },
-          available_moves_in_direction(board) { |s| Square.new(s.row - 1, s.column + 1) },
-          available_moves_in_direction(board) { |s| Square.new(s.row + 1, s.column - 1) }
+          available_moves_in_direction(board) { |s| Square.at(s.row + 1, s.column + 1) },
+          available_moves_in_direction(board) { |s| Square.at(s.row - 1, s.column - 1) },
+          available_moves_in_direction(board) { |s| Square.at(s.row - 1, s.column + 1) },
+          available_moves_in_direction(board) { |s| Square.at(s.row + 1, s.column - 1) }
         ].flat_map(&:to_a).to_a
       end
 
@@ -75,8 +75,8 @@ module Chessington
         location = board.find_piece(self)
         delta = @player == Chessington::Engine::Player::WHITE ? 1 : -1
 
-        single_move_square = Square.new(location.row + delta, location.column)
-        double_move_square = Square.new(location.row + 2 * delta, location.column)
+        single_move_square = Square.at(location.row + delta, location.column)
+        double_move_square = Square.at(location.row + 2 * delta, location.column)
 
         normal_moves = if !board.square_in_bounds?(single_move_square) || board.square_is_occupied?(single_move_square)
           []
