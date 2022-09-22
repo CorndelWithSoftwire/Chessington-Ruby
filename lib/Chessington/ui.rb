@@ -58,7 +58,7 @@ module Chessington
                 board_space[:area] = area
                 @board.last << board_space
 
-                area.add_events(Gdk::EventMask::BUTTON_PRESS_MASK | Gdk::EventMask::POINTER_MOTION_MASK)
+                area.add_events(Gdk::EventMask::BUTTON_PRESS_MASK | Gdk::EventMask::POINTER_MOTION_MASK | Gdk::EventMask::TOUCH_MASK)
 
               end
             }
